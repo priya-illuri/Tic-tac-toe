@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TicToe</title>
+    <script>
+
+        var x='X';
+        var n=0;
+        var moves=[];
+        var maxmoves=0;
+
+
+        function back()
+        {
+            var t=0;
+            var myTable=document.getElementById("tab");
+
+            var key=moves[n-1].id;
+
+            var num=parseInt(key);
+
+            var r=parseInt(num/3);
+
+            var c=num %3;
+            myTable.rows[r].cells[c].innerHTML=' ';
+            n=n-1;
+        }
+
+        function forward()
+        {
+              var t=n;
+              var myTable=document.getElementById("tab");
+              key=moves[n].id;
+                var num=parseInt(key);
+                var r=parseInt(num/3);
+            var c=num %3;
+            myTable.rows[r].cells[c].innerHTML=moves[n].value;
+            n=n+1;
+        }
+
+        function isOver()
+        {
+            var myTable=document.getElementById("tab");
+            var y=x;
+            if(x=='X')
+            x='O';
+            else
+            x='X';
+            n=n+1;
+            maxMoves=n;
+            if(myTable.rows[0].cells[0].innerHTML===y && myTable.rows[1].cells[0].innerHTML===y &&myTable.rows[2].cells[0].innerHTML===y)return 1;
+            if(myTable.rows[0].cells[1].innerHTML===y && myTable.rows[1].cells[1].innerHTML===y && myTable.rows[2].cells[1].innerHTML===y)return 1;
+            if(myTable.rows[0].cells[2].innerHTML===y && myTable.rows[1].cells[2].innerHTML===y && myTable.rows[2].cells[2].innerHTML===y)return 1;
+
+            if(myTable.rows[0].cells[0].innerHTML===y && myTable.rows[0].cells[1].innerHTML===y && myTable.rows[0].cells[2].innerHTML===y)return 1;
+            if(myTable.rows[1].cells[0].innerHTML===y && myTable.rows[1].cells[1].innerHTML===y && myTable.rows[1].cells[2].innerHTML===y)return 1;
+            if(myTable.rows[2].cells[0].innerHTML===y && myTable.rows[2].cells[1].innerHTML===y && myTable.rows[2].cells[2].innerHTML===y)return 1;
+
+            if(myTable.rows[0].cells[0].innerHTML===y && myTable.rows[1].cells[1].innerHTML===y && myTable.rows[2].cells[2].innerHTML===y)return 1;
+            if(myTable.rows[0].cells[2].innerHTML===y && myTable.rows[1].cells[1].innerHTML===y && myTable.rows[2].cells[0].innerHTML===y)return 1;
+
+            if(n==9)
+            {
+            alert("Game over");
+            setTimeout("location.reload(true);",2000);
+            }
+            return 0;
+         }
+
+        function func(num)
+        {
+        moves.push({id:num,value:x});
+        var val=parseInt(num);
+
+        var r=parseInt(val/3);
+        var c=val %3;
+
+        var myTable=document.getElementById("tab");
+
+        myTable.rows[r].cells[c].innerHTML=x;
+
+        n1=isOver();
+        if(n1==1)
+        {
+
+        if(x=='X')
+        alert("O won");
+        else alert("X won");
+        alert("Game over");
+        setTimeout("location.reload(true);",2000);
+        }
+        }
+
+        function start()
+        {
+        alert("here");
+        for(var i=0;i<3;i++)
+        for(var j=0;j<3;j++)
+        myTable.rows[i].cells[j].innerHTML='';
+        }
+
+    </script>
+    <style>
+        table{
+        border-collapse:collapse;
+
+        }
+        td{
+        height:100px;
+        width:100px;
+        line-height:100px;
+        font-size:25px;
+        font-color:blue;
+        text-align:center;
+        }
+    </style>
+</head>
+<body >
+<center>
+    <div id="msg" ></div>
+<table id="tab" border="1" height="500" width="500" style="border : 2px solid #f72c2c">
+    <tr>
+        <td id="1" onclick="func(0)"></td>
+        <td id="2" onclick="func(1)"></td>
+        <td id="3" onclick="func(2)"></td>
+    </tr>
+    <tr>
+        <td id="4" onclick="func(3)"></td>
+        <td id="5" onclick="func(4)"></td>
+        <td id="6" onclick="func(5)"></td>
+    </tr>
+    <tr>
+        <td id="7" onclick="func(6)" ></td>
+        <td id="8" onclick="func(7)" ></td>
+        <td id="9" onclick="func(8)" ></td>
+    </tr>
+</table>
+
+<pre>
+<button id="undo" onclick="back()">UNDO</button>                     <button id="redo" onclick="forward()">REDO</button>
+</pre>
+
+
+</center>
+</body>
+</html>
